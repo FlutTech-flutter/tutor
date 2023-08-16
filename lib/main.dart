@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_tutor/themeData.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      themeMode: ThemeMode.dark,
+      theme: AppThemeData.lightTheme,
+      darkTheme: AppThemeData.darkTheme,
+      home: Scaffold(
+        appBar: AppBar(
+          //elevation: 14,
+          title: Text('tre'),
+        ),
+        floatingActionButton: FloatingActionButton(onPressed: null),
+      ),
     );
   }
 }
