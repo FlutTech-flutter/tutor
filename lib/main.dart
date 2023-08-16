@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:git_tutor/application/theme_service.dart';
 import 'package:git_tutor/themeData.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeService(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,17 +15,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.dark,
-      theme: AppThemeData.lightTheme,
-      darkTheme: AppThemeData.darkTheme,
-      home: Scaffold(
-        appBar: AppBar(
-          //elevation: 14,
-          title: Text('tre'),
+    return Consumer<ThemeService>(builder: (context, themeService, child) {
+      return MaterialApp(
+        themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+        theme: AppThemeData.lightTheme,
+        darkTheme: AppThemeData.darkTheme,
+        home: Scaffold(
+          appBar: AppBar(
+            //elevation: 14,
+            title: Text('tre'),
+          ),
+          floatingActionButton: FloatingActionButton(
+              onPressed: () => Provider.of<ThemeService>(context, listen: false)
+                  .toggleTheme()),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: null),
-      ),
-    );
+      );
+    });
   }
 }
